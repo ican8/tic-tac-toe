@@ -134,7 +134,11 @@ function App() {
     const { position, depth, isMaximizingPlayer } = params;
     const staticResult = checkResult(position);
     if (staticResult !== null) {
-      return !staticResult ? 0 : staticResult === "X" ? 10 : -10;
+      return !staticResult
+        ? 0
+        : staticResult === "X"
+        ? 10 - depth
+        : -10 + depth;
     }
     const children: Position[] = getChildrenPositions(
       position,
@@ -194,18 +198,18 @@ function App() {
 
   return (
     <>
-      <h1>Tic Tac Toe</h1>
+      <p className="3xls sm:4xl md:text-6xl">Tic Tac Toe</p>
       <Board
         position={position}
         onClick={!winner && currentPlayer === "X" ? handleOnclick : () => {}}
       />
-      <h2>
+      <p className="3xls sm:4xl md:text-6xl">
         {winner === null
           ? `Current Player ${currentPlayer}`
           : winner
           ? `Player ${winner} Wins!`
           : "Game Drawn"!}
-      </h2>
+      </p>
     </>
   );
 }
